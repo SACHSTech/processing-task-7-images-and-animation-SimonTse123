@@ -4,6 +4,7 @@ import processing.core.PImage;
 
 public class Sketch extends PApplet {
 
+  // Declare variables for background, and images and shapes
   PImage imgBackground;
   PImage imgPegasus;
   PImage imgPeter;
@@ -26,9 +27,6 @@ public class Sketch extends PApplet {
   float fltSpeedXC = 2;
   float fltSpeedYC = 4;
 
-
- 
-
   float fltAngle = 0;
   
 
@@ -40,6 +38,8 @@ public class Sketch extends PApplet {
   }
 
   public void setup() {
+
+    // Loading and resizing the images for the sketch
     imgBackground = loadImage("Background.jpg");
     imgBackground.resize(width, height);
 
@@ -49,28 +49,33 @@ public class Sketch extends PApplet {
     imgPeter = loadImage("Peterpan.png");
     imgPeter.resize(width / 8, height / 8);
 
-    background(imgBackground);
   }
 
 
   public void draw() {
+    // Changes background to the desired image
     background(imgBackground);
 
+    // Adds a Pegasus image to sketch and animates it so it changes position on screen
     image(imgPegasus, fltPegasusX, fltPegasusY);
     fltPegasusX += fltSpeedXP;
     fltPegasusY += fltSpeedYP;
 
+    // Checks collision with walls along the border of the sketch
     if(fltPegasusX < 0 || fltPegasusX > width - 50){
       fltSpeedXP *= -1;
     }
     if(fltPegasusY < 0 || fltPegasusY > height - 50){
       fltSpeedYP *= -1;
     }
+
+    // Adds a circle to the sketch and animates it so it changes its position.
     fill(245, 66, 138);
     ellipse(fltCircleX, fltCircleY, 50, 50);
     fltCircleX += fltSpeedXC;
     fltCircleY += fltSpeedYC;
 
+    // Checks collision with walls along the border of the sketch
     if(fltCircleX < 25 || fltCircleX > width - 25){
       fltSpeedXC *= -1;
     }
@@ -78,6 +83,7 @@ public class Sketch extends PApplet {
       fltSpeedYC *= -1;
     }
     
+     // Adds a peter pan image to the sketch and animates it so it changes its position non-linear.
     image(imgPeter, fltPeterX, fltPeterY);
     fltPeterX = cos(fltAngle) * 50 + 256;
     fltPeterY = sin(fltAngle) * 50 + 200;
